@@ -15,6 +15,7 @@ run:
 	--level=debug --grpc-port=9999 --backend-url=https://httpbin.org/status/401 --backend-url=https://httpbin.org/status/500 \
 	--ui-logo=https://raw.githubusercontent.com/stefanprodan/podinfo/gh-pages/cuddle_clap.gif $(EXTRA_RUN_ARGS)
 
+.PHONY: test
 test:
 	go test ./... -coverprofile cover.out
 
@@ -32,6 +33,13 @@ build-charts:
 
 build-container:
 	docker build -t $(DOCKER_IMAGE_NAME):$(VERSION) .
+
+build-xx:
+	docker buildx build \
+	--platform=linux/amd64 \
+	-t $(DOCKER_IMAGE_NAME):$(VERSION) \
+	--load \
+	-f Dockerfile.xx .
 
 build-base:
 	docker build -f Dockerfile.base -t $(DOCKER_REPOSITORY)/podinfo-base:latest .
