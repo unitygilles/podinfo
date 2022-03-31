@@ -29,7 +29,7 @@ func main() {
 	fs.Int("port-metrics", 0, "metrics port")
 	fs.Int("grpc-port", 0, "gRPC port")
 	fs.String("grpc-service-name", "podinfo", "gPRC service name")
-	fs.String("level", "info", "log level debug, info, warn, error, flat or panic")
+	fs.String("level", "info", "log level debug, info, warn, error, fatal or panic")
 	fs.StringSlice("backend-url", []string{}, "backend service URL")
 	fs.Duration("http-client-timeout", 2*time.Minute, "client timeout duration")
 	fs.Duration("http-server-timeout", 30*time.Second, "server read and write timeout duration")
@@ -53,6 +53,7 @@ func main() {
 	fs.Int("stress-cpu", 0, "number of CPU cores with 100 load")
 	fs.Int("stress-memory", 0, "MB of data to load into memory")
 	fs.String("cache-server", "", "Redis address in the format <host>:<port>")
+	fs.String("otel-service-name", "", "service name for reporting to open telemetry address, when not set tracing is disabled")
 
 	versionFlag := fs.BoolP("version", "v", false, "get version number")
 
